@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+{% block head %}
+	<title>Strategy{% block headtitle %}{% endblock %}</title>
+ 	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 	<meta name="description" content="">
+ 	<meta name="keywords" content="">
+ 	<meta name="author" content="Javiera Guedes">
+ 	<meta charset="utf-8">
+	<meta http-equiv="refresh" content=".5" > 
+
+		
+	<link type="text/css" rel="stylesheet" 
+		  href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+	<link type="text/css" rel="stylesheet" 
+		  href="{{ url_for('static', filename='css/my.css') }}" />
+	<link type="text/css" rel="stylesheet" 
+	  	  href="{{ url_for('static', filename='css/datepicker.css') }}" />
+	<link rel="shortcut icon" 
+	      href="{{ url_for('static', filename='ico/stock.ico') }}">		
+	<link rel='stylesheet' type='text/css' 
+		  href='http://fonts.googleapis.com/css?family=Share+Tech+Mono' > 	
+    <link rel='stylesheet' type='text/css'
+	      href='http://fonts.googleapis.com/css?family=Graduate'>
+	<link href='http://fonts.googleapis.com/css?family=Gravitas+One' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css"
+	      href="{{ url_for('static', filename='css/bootstrap-select.css') }}">	
+	<link href='http://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet' type='text/css'>
+    <link href="static/css/typeahead.css" rel="stylesheet">
+	
+	<link type="text/css" rel="stylesheet" href="static/css/rickshaw.css">
+	<link type="text/css" rel="stylesheet" href="static/css/lines.css">
+	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css">
+	
+
+	 
+	 
+	<style>
+		.column { display: inline-block }
+		#legend { background: white }
+		#legend .line { color: #333 }
+	</style>
+	
+<!-- 	  	<style>
+		body {background-color:#CCC;font-family:Verdana;width:1250;}
+		.flex {position:relative;width:50px;min-height:300px;margin-left:20 auto;border:0px solid red;margin-top:10px;}
+		.flex a {background-color:white;display:block;width:100px;height:100px;border-radius:8px;position:absolute;background-repeat:no-repeat;background-position:center;border:3px solid white;cursor:pointer;text-align:left;text-shadow:1px 1px 20px #000;color:white;font-size:18px;font-weight:bold;text-indent:10px;line-height:30px;text-decoration:none;}
+		[bg=a] {background-image:url(../static/img/sg1.jpg);}
+		[bg=b] {background-image:url(../static/img/sg2.jpg);background-size:300px auto;}
+		[bg=c] {background-image:url(../static/img/sg3.jpg);}
+		[bg=d] {background-image:url(../static/img/sg4.jpg);}
+		[bg=e] {background-image:url(../static/img/sg5.jpg);background-size:auto 280px;}
+		[bg=f] {background-image:url(../static/img/sg6.jpg);background-size:auto 280px;}
+		[bg=g] {background-image:url(../static/img/sg7.jpg);background-size:auto 200px;}
+		[bg=h] {background-image:url(../static/img/sg8.jpg);}
+		[bg=i] {background-image:url(../static/img/sg9.jpg);background-size:auto 200px;}
+		[bg=j] {background-image:url(../static/img/sg10.jpg);background-size:auto 280px;}
+		[bg=k] {background-image:url(../static/img/sg11.jpg);background-size:auto 280px;}
+		[bg=l] {background-image:url(../static/img/sg12.jpg);}
+		[bg=m] {background-image:url(../static/img/sg13.jpg);}
+		[bg=n] {background-image:url(../static/img/sg14.jpg);background-size:auto 280px;}
+		[bg=o] {background-image:url(../static/img/sg15.jpg);background-size:auto 280px;}
+		h1, h2, h3 {width:950px;font-weight:normal;margin:0 auto;}
+		h1 {margin-top:0px;}
+		h3 {color:#666;margin-top:5px;}
+		h4 {color:white; margin-top:5px;font-weight:bold;}
+		p {width:950px;margin:0;padding:0;margin:0 auto;font-size:14px;color:black;margin-top:0px;margin-bottom:20px;color:white;}
+		#buttons {height:75px;width:850px;margin:0 auto;margin-top:10px;}
+		#buttons a {float:left}
+		.marginleft {margin-left:25px;}
+
+	  	</style>
+	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+	  	<script src="{{ url_for('static', filename='js/jquery.flex.js') }}"></script>
+	  	<script type="text/javascript">
+	  	$(function() {
+	  	    $(".flex").flex();
+	  	});
+	  	</script>	 --> 
+ {% endblock %}
+</head>
+	
+ <body>
+	 <div class="container-narrow">	
+		<div class="masthead">
+		
+   	 	   <ul class="nav nav-pills pull-right">	
+			   
+				<div class="btn-group">
+					<a class="btn btn-default btn-lg" href="#">About</a>
+			 	</div>
+				
+				<div class="btn-group">
+			    	<button type="button" class="btn btn-default btn-lg"> Slides </button>
+			 	</div>
+		   </ul>
+		   	  <h1 class=" nav nav-pills muted pull-left" style="font-family:'Wallpoet', cursive; font-size: 82px;"><a href="{{ url_for('index') }}">$trategy</a></h1>
+	
+	
+
+   	</div> <!-- masthead -->
+  
+   <p>&nbsp;</p>
+   <p>&nbsp;</p>
+   <p>&nbsp;</p>
+   <p>&nbsp;</p> 
+
+	{% block content %}
+	{% endblock %}
+	  	  
+	{% block footer %}
+ 	<footer class="footer">
+		<p>Strategy is powered by 
+			<a href="http://flask.pocoo.org/docs/">Flask</a>,
+			<a href="http://getbootstrap.com/">Bootstrap</a>,
+			<a href="http://glyphicons.com/"> Glyphicons</a>, and 
+			<a href="https://www.heroku.com/">Heroku</a>.
+		</p>
+		<p>&copy; Javiera Guedes</p>
+	</footer>
+    {% endblock %}
+	
+	</div> <!-- container narrow -->  
+	
+ <!-- javascript -->
+
+	<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/bootstrap-datepicker.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/jquery.tablesorter.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/scrollfix.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/bootstrap-select.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/jquery.flex.js') }}"></script>
+	 <script src="static/js/typeahead.js"></script>
+	 <script>
+	     $('.all_stocks .typeahead').typeahead({
+	       name: 'stocklist',
+	       prefetch: 'static/docs/stocks.json',
+	       limit: 10
+	     });
+	 </script>
+
+
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
+	 <script src="static/js/rickshaw.js"></script>
+	 <script src="static/js/d3.v3.js"></script>
+
+
+	 
+ 	<script>
+    	$(function(){
+    	  	$('.datepicker').datepicker({
+    	  		format: 'dd M yyyy',
+    	  		autoclose: true
+    	  		});
+    	  });
+    </script>
+	
+	<script>  
+	    $(document).ready(function () {  
+	        $('.dropdown-toggle').dropdown();  
+	     });  
+	</script> 
+	   
+	<script>  
+	   $(function() {
+	     $('.table').tablesorter({
+	     	cssInfoBlock : "avoid-sort"
+	     });
+	   });
+	</script> 	
+	
+	 <script>  
+	 var $btn2 = $('#popover');
+	 $btn2.data('state', 'hover');
+
+	 var enterShow = function () {
+	     if ($btn2.data('state') === 'hover') {
+	         $btn2.popover('show');
+	     }
+	 };
+	 var exitHide = function () {
+	     if ($btn2.data('state') === 'hover') {
+	         $btn2.popover('hide');
+	     }
+	 };
+
+	 var clickToggle = function () {
+	     if ($btn2.data('state') === 'hover') {
+	         $btn2.data('state', 'pinned');
+	     } else {
+	         $btn2.data('state', 'hover')
+	         $btn.popover('hover');
+	     }
+	 };
+
+	 $btn2.popover({trigger: 'manual'})
+	     .on('mouseenter', enterShow)
+	     .on('mouseleave', exitHide)
+	     .on('click', clickToggle);
+	
+	</script> 	
+	
+	<script type="text/javascript">
+	    $(function () {
+	        $("[rel='tooltip']").tooltip();
+	    });
+	</script>
+	
+	<script>
+		
+		$(document).ready(function() {
+	   	 if (saveformErrors) {
+	        	$("[id='save']").modal('show');
+	    }
+	});
+
+	</script>
+	
+    <script type="text/javascript">
+        $(window).on('load', function () {
+
+	        $('.selectpicker').selectpicker({
+	       style: 'btn btn-default btn-lg',
+	       size: 10
+	       });
+        });
+    </script>
+	
+	<!-- <script>
+	$.ajaxSetup ({
+	    // Disable caching of AJAX responses
+	    cache: false
+	});
+	</script>
+	 -->
+
+	<script type="text/javascript">
+	$(function() {
+	    $(".flex").flex();
+	});
+	</script>
+	
+
+
+			
+</body>
+</html>

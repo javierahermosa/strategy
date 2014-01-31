@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+{% block headtitle %} - Home{% endblock %}
+
+
+{% block content %}
+
+{% with errors = get_flashed_messages(category_filter=["msg"]) %}
+	{% if errors %}
+    	{% for msg in errors %}
+     	<p class="text-danger">{{ msg }}</p>
+   	 	{% endfor %}
+ 	{% endif %}
+{% endwith %}
+
+<!-- <h2 style="font-family:'Wallpoet', cursive; font-size: 34px;">A trading strategy recommendation app</h2> -->
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+	
+<h3>Get a notification when a good buy or sell opportunity comes up:</h3>
+<form  class="form-inline" role="search" action="." method="post">
+ {{ form.csrf_token }}
+ 
+	  {% for field in form %}
+	  {% if field.errors %}
+	  <h3 class="text-danger error">{{ field.errors|join(', ') }}</h3>
+	  {% endif %}
+	
+	  {% endfor %}
+	  
+	<div class='form-group all_stocks'>
+		<input class="typeahead tt-query" type="text" placeholder="Enter a stock symbol" autocomplete="off" spellcheck="false" style="position: relative; vertical-align: top; background-color: transparent; " dir="auto" name='stock'>
+	                        </span>
+	                    </div>					
+						
+    <div class="form-group">
+		<div class="input-group">
+		      <span class="input-group-btn">
+		        <button class="btn btn-default btn-lg" style="height: 48px" type="button">Notify me</button>
+		      </span>
+		      <input type="text" class="form-control input-lg typeahead tt-query" style="position: relative; vertical-align: top; background-color: transparent;" name='email' placeholder="email">
+		    </div><!-- /input-group -->
+	</div>	
+  <button type="submit" class="btn btn-primary btn-lg">Go!</button>
+</form>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+{%  if recommend | length %}
+<h2 class="text-success"> Today, $trategy recommends:</h2>
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <div class="hero-widget well well-sm">
+            <div class="icon">
+                 <i class="glyphicon glyphicon-star text-success"></i>
+            </div>
+            <div class="text">
+                <var>{{recommend[0][2]}}</var>
+                <h1  class="text-muted" style="font-size: 32px;">{{recommend[0][0]}}</h1>
+				<p class="text-muted"> Sell in 5 days </p>
+            </div>
+     
+        </div>
+	</div>
+</div>	
+{% else %}
+<h2 class="text-muted"> No recommendations today. Last notification:</h2>
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <div class="hero-widget well well-sm">
+            <div class="icon">
+                 <i class="glyphicon glyphicon-star text-muted"></i>
+            </div>
+            <div class="text">
+                <var class="text-muted">{{notifications[0][2]}}</var>
+                <h1  class="text-muted" style="font-size: 32px;">{{notifications[0][0]}}</h1>
+				<p class="text-muted"> Recommended on {{notifications[0][1]}}</p>
+            </div>
+     
+        </div>
+	</div>
+</div>	
+
+{% endif %}	
+
+
+<h2> $trategy did better than the SPY during the 2008 crisis on:</h2>
+	<div class="row">
+		<div class="col-sm-3">
+    	    <div class="hero-widget well well-sm">
+                <div class="icon">
+                     <i class="glyphicon glyphicon-thumbs-up"></i>
+                </div>
+                <div class="text">
+                    <var>224%</var>
+                    <h1  class="text-muted" style="font-size: 32px;">GOOG</h1>
+                </div>
+                <div class="options">
+                     <a href="javascript:;" class="btn btn-disabled btn-lg">Return during 2008-2010</a>
+                </div>
+            </div>
+		</div>
+        <div class="col-sm-3">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                     <i class="glyphicon glyphicon-thumbs-up"></i>
+                </div>
+                <div class="text">
+                    <var>83%</var>
+                    <h1  class="text-muted" style="font-size: 32px;">PCLN</h1>
+                </div>
+                <div class="options">
+                    <a href="javascript:;" class="btn btn-disabled btn-lg">Return during 2008-2010</a>
+                </div>
+            </div>
+		</div>
+		
+        <div class="col-sm-3">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                     <i class="glyphicon glyphicon-thumbs-up"></i>
+                </div>
+                <div class="text">
+                    <var>60% </var>
+                    <h1  class="text-muted" style="font-size: 32px;">AMZN</h1>
+                </div>
+                <div class="options">
+                    <a href="javascript:;" class="btn btn-disabled btn-lg">Return during 2008-2010</a>
+                </div>
+            </div>
+    	</div>
+		
+        <div class="col-sm-3">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                     <i class="glyphicon glyphicon-thumbs-up"></i>
+                </div>
+                <div class="text">
+                    <var>52%</var>
+                    <h1  class="text-muted" style="font-size: 32px;">AAPL</h1>
+                </div>
+                <div class="options">
+                    <a href="javascript:;" class="btn btn-disabled btn-lg"> Return during 2008-2010</a>
+                </div>
+            </div>
+		</div>
+  
+
+
+	</div>
+
+
+
+<!-- <h2> Best Recent $trategy Recommendations:</h2>
+	<div class="row">
+        <div class="col-sm-3">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                     <i class="glyphicon glyphicon-thumbs-up"></i>
+                </div>
+                <div class="text">
+                    <var>{{ '%0.1f' % best[0][1]}}% </var>
+                    <h1  class="text-muted" style="font-size: 32px;">{{best[0][0]}}</h1>
+                </div>
+                <div class="options">
+                    <a href="javascript:;" class="btn btn-disabled btn-lg">Dec 2, 2013</a>
+                </div>
+            </div>
+    	</div>
+		
+        <div class="col-sm-3">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                     <i class="glyphicon glyphicon-thumbs-up"></i>
+                </div>
+                <div class="text">
+                    <var>{{ '%0.1f' % best[1][1]}}%</var>
+                    <h1  class="text-muted" style="font-size: 32px;">{{best[1][0]}}</h1>
+                </div>
+                <div class="options">
+                    <a href="javascript:;" class="btn btn-disabled btn-lg"> Dec 22 2013</a>
+                </div>
+            </div>
+		</div>
+  
+        <div class="col-sm-3">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                     <i class="glyphicon glyphicon-thumbs-up"></i>
+                </div>
+                <div class="text">
+                    <var>{{  '%0.1f' % best[2][1]}}%</var>
+                    <h1  class="text-muted" style="font-size: 32px;">{{best[2][0]}}</h1>
+                </div>
+                <div class="options">
+                    <a href="javascript:;" class="btn btn-disabled btn-lg">Nov 30 2013</a>
+                </div>
+            </div>
+		</div>
+		<div class="col-sm-3">
+    	    <div class="hero-widget well well-sm">
+                <div class="icon">
+                     <i class="glyphicon glyphicon-thumbs-up"></i>
+                </div>
+                <div class="text">
+                    <var>{{  '%0.1f' % best[3][1] }}%</var>
+                    <h1  class="text-muted" style="font-size: 32px;">{{best[3][0]}}</h1>
+                </div>
+                <div class="options">
+                     <a href="javascript:;" class="btn btn-disabled btn-lg">Jan 1 2014</a>
+                </div>
+            </div>
+		</div>
+	</div> -->
+
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+
+
+{% endblock %}

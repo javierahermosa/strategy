@@ -1,0 +1,47 @@
+
+{% extends "base.html" %}
+{% block headtitle %} - Home{% endblock %}
+
+
+<h1>These Stocks rock!</h1>
+<h3>They have the highest rate of return since the beginning of the year.</h3>
+
+
+<div class="flex">
+	<a bg="a" style="left:0px;top:0px;width:250px;height:125px;" width="350" height="175">
+		<h4>{{best[0][0]}}:</h4><h2>{{ '%.2f' % best[0][1] }}%</h2></a>
+	<a bg="b" style="left:255px;height:100px;top:0px;width:155px;" width="290" height="175">
+		<h4>{{ best[1][0]}}:</h4><h2>{{ '%.2f' % best[1][1] }}%</h2></a>
+	<a bg="c" style="left:415px;height:150px;top:0px;width:175px;" width="145" height="160">
+		<h4>{{ best[2][0]}}:</h4><h2>{{ '%.2f' % best[2][1]}}%</h2></a>
+	<a bg="d" style="left:600px;height:75px;top:0px;width:165px;" width="175" height="150">
+		<h4>{{ best[3][0]}}:</h4><h2>{{ '%.2f' % best[2][1] }}%</h2></a>
+	<a bg="e" style="left:780px;height:125px;top:0px;width:160px;" width="200" height="170">
+		<h4>{{ best[4][0]}}:</h4><h2>{{ '%.2f' % best[4][1]}}%</h2></a>
+		
+		
+	<a bg="f" style="left:0px;height:100px;top:135px;width:245px;" width="255" height="130">
+		<h4>{{ best[5][0]}}:</h4><h2>{{ '%.2f' % best[5][1] }}%</h2></a>
+	<a bg="g" style="left:265px;height:140px;top:110px;width:145px;" width="250" height="140">
+		<h4>{{best[6][0]}}:</h4><h2>{{ '%.2f' % best[6][1]}}%</h2></a>
+	<a bg="h" style="left:415px;height:95px;top:160px;width:165px;" width="150" height="110">
+		<h4>{{best[7][0]}}:</h4><h2>{{ '%.2f' % best[7][1] }}%</h2></a>
+	<a bg="i" style="left:600px;height:200px;top:85px;width:175px;" width="190" height="210">
+		<h4>{{ best[8][0]}}:</h4><h2>{{ '%.2f' % best[8][1] }}%</h2></a>
+	<a bg="j" style="left:780px;height:90px;top:130px;width:155px;" width="175" height="105">
+		<h4>{{ best[9][0]}}:</h4><h2>{{ '%.2f' % best[9][1] }}%</h2></a>
+	<a bg="k" style="left:780px;height:75px;top:220px;width:165px;" width="175" height="200">
+		<h4>{{best[10][0]}}:</h4><h2>{{ '%.2f' % best[10][1]}}%</h2></a>
+		
+		
+		<a bg="l" style="left:0px;height:100px;top:245px;width:205px;" width="225" height="120">
+			<h4>{{ best[11][0]}}:</h4><h2>{{ '%.2f' % best[11][1] }}%</h2></a>
+		<a bg="m" style="left:215px;height:100px;top:260px;width:145px;" width="250" height="110">
+			<h4>{{best[12][0]}}:</h4><h2>{{ '%.2f' % best[12][1]}}%</h2></a>
+		<a bg="n" style="left:375px;height:85px;top:260px;width:165px;" width="200" height="100">
+			<h4>{{best[13][0]}}:</h4><h2>{{ '%.2f' % best[13][1] }}%</h2></a>
+		<a bg="o" style="left:550px;height:85px;top:290px;width:215px;" width="190" height="100">
+			<h4>{{ best[14][0]}}:</h4><h2>{{ '%.2f' % best[14][1] }}%</h2></a>
+
+</div>
+

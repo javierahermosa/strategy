@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% block headtitle %} - Results{% endblock %}
+
+{% block content %}
+
+{% with errors = get_flashed_messages() %}
+	{% if errors %}
+    	{% for msg in errors %}
+     	<p class="text-danger">{{ msg }}</p>
+   	 	{% endfor %}
+ 	{% endif %}
+{% endwith %}
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<div class="row">
+  <div class="col-sm-6 col-md-4 col-md-offset-3 col-lg-4 col-lg-offset-4">
+    <div class="thumbnail">
+	{% if kalman > 0 %}	
+      <img src="static/img/success.jpg"   class="ImageBorder" style="border:4px solid black;" alt="...">
+      <div class="caption">
+		 <h1>{{stock}}</h1>
+        <h3 class="text-success">is expected to go up today</h3>
+		<p class="text-muted">This is a Kalman prediction.</p>
+		<p></p>
+      </div>
+	  {% else %}
+	  <img src="static/img/drop.jpg"   class="ImageBorder"  style="border:=4px solid black;" alt="...">
+      <div class="caption">
+		 <h1>{{stock}}</h1>
+        <h3 class="text-danger">is expected to drop today</h3>
+		<p class="text-muted">This is a Kalman prediction.</p>
+      </div>
+	  {% endif%}
+     
+    </div>
+  </div>
+</div>
+<h2> $trategy statistics on {{stock}} during the 2008 crisis:</h2>
+	<div class="row">
+        <div class="col-sm-4">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                     <i class="glyphicon glyphicon-star"></i>
+                </div>
+                <div class="text">
+				
+                    <var>{{ '%0.1f' % stats[0] }} % </var>
+                    <label class="text-muted">total earned from {{startdate}} - {{enddate}}</label>
+					{% if stats[0]> return_holding[0] %}
+					<h3 style="font-size:34px; text-weight:bold;" class="text-success">compare to {{ '%0.1f' %  return_holding[0]}}% return holding</h3>
+					{% else %}
+					<h3>compare to {{ '%0.1f' %  return_holding[0]}}% holding</h3>
+					{% endif %}
+				
+                </div>
+             
+            </div>
+    	</div>
+		
+        <div class="col-sm-4">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                     <i class="glyphicon glyphicon-shopping-cart"></i>
+                </div>
+                <div class="text">
+					
+                    <var>{{ '%0.1f' %  percent_correct_trans}} %</var>
+                    <label class="text-muted"> of recommendations were profitable from {{startdate}} - {{enddate}}</label>
+                </div>
+             	<p>&nbsp;</p>
+            </div>
+		</div>
+  
+        <!-- <div class="col-sm-3">
+            <div class="hero-widget well well-sm">
+                <div class="icon">
+                     <i class="glyphicon glyphicon-stats"></i>
+                </div>
+                <div class="text">
+                    <var>{{ '%.2f' % stats[2] }}</var>
+                    <label class="text-muted">Sharpe Ratio of recommendations since 2012</label>
+                </div>
+            
+            </div>
+		</div> -->
+		<div class="col-sm-4">
+    	    <div class="hero-widget well well-sm">
+                <div class="icon">
+                     <i class="glyphicon glyphicon-flash"></i>
+                </div>
+                <div class="text">
+                    <var>{{ '%.1f' % last_trans[2]}} % </var>
+                    <label class="text-muted">Return on last recommended transaction</label>
+                </div>
+          	  <p>&nbsp;</p>
+            </div>
+		</div>
+	</div>
+
+<h2> $trategy recommendations on {{stock}}:</h1>
+<a href="#"><img class="featurette-image img-responsive img-rounded" 		src="static/img/bollinger/bollinger_{{stock}}_ne.png" 
+	   onmouseover="this.src='static/img/bollinger/bollinger_{{stock}}.png'" 		onmouseout="this.src='static/img/bollinger/bollinger_{{stock}}_ne.png'" /></a> 
+
+
+	   <div class="column">
+	   	 	<div id="chart"></div>
+	   	 	<div id="slider"></div>
+	   </div>
+	   
+	   <div class="column" id="legend"></div>
+	   
+
+  	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  	 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
+  	 <script src="static/js/rickshaw.js"></script>
+  	 <script src="static/js/d3.v3.js"></script>
+	
+	
+       <script>
+
+       var seriesData = [ [], [], [], [], [] ];
+       var random = new Rickshaw.Fixtures.RandomData(50);
+
+       for (var i = 0; i < 75; i++) {
+       	random.addData(seriesData);
+       }
+	   
+       var graph = new Rickshaw.Graph( {
+       	element: document.getElementById("chart"),
+       	renderer: 'multi',
+       	width: 900,
+       	height: 500,
+       	dotSize: 8, 
+       	series: [
+       		{
+       			name: 'temperature',
+       			data: {{ dat|tojson|safe }},
+       			color: 'rgba(255, 165, 0, 0.4)',
+       			renderer: 'stack'
+       		}, {
+       			name: 'heat index',
+       			data:  {{ buy|tojson|safe }},
+       			color: 'rgba(127, 0, 0, 0.3)',
+       			renderer: 'scatterplot'
+       		} , {
+        		name: 'dewpoint',
+       			data: {{ sell|tojson|safe }},
+        		color: 'rgba(0, 127, 0, 0.3)',
+        		renderer: 'scatterplot'
+        		}// , {
+//        			name: 'pop',
+//        			data: seriesData.shift().map(function(d) { return { x: d.x, y: d.y / 4 } }),
+//        			color: 'rgba(0, 0, 127, 0.4)',
+//        			renderer: 'bar'
+//        		}, {
+//        			name: 'humidity',
+//        			data: seriesData.shift().map(function(d) { return { x: d.x, y: d.y * 1.5 } }),
+//        			renderer: 'line',
+//        			color: 'rgba(0, 0, 127, 0.25)'
+//        		}
+       	]
+       } );
+
+       var slider = new Rickshaw.Graph.RangeSlider({
+       	graph: graph,
+       	element: $('#slider')
+       });
+
+       graph.render();
+
+       var detail = new Rickshaw.Graph.HoverDetail({
+       	graph: graph
+       });
+
+       var legend = new Rickshaw.Graph.Legend({
+       	graph: graph,
+       	element: document.querySelector('#legend')
+       });
+
+       var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight({
+           graph: graph,
+           legend: legend,
+           disabledColor: function() { return 'rgba(0, 0, 0, 0.2)' }
+       });
+
+       var highlighter = new Rickshaw.Graph.Behavior.Series.Toggle({
+           graph: graph,
+           legend: legend
+       });
+
+
+
+
+       </script>
+	   
+
+	   
+
+{% endblock %}
