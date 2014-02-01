@@ -64,9 +64,9 @@ def fillnans(df):
 def generate_sets(gset="train"):
    
     if gset == "train":
-        outfile = open("train.csv", "wb")
+        outfile = open("data/train.csv", "wb")
     elif gset == "test":
-        outfile = open("test.csv", "wb")
+        outfile = open("data/test.csv", "wb")
     startdate = dt.date(2008,01,01)
     enddate = dt.datetime.now()
      
@@ -159,36 +159,36 @@ if __name__ == "__main__":
             features = fillnans(features)
         
             try:
-               with open('train.csv'):
+               with open('data/train.csv'):
                    pass   
             except IOError:
                dtrain = generate_sets(gset="train")
              
             try:
-                with open('test.csv'):
+                with open('data/test.csv'):
                     pass   
             except IOError:
                 dtrain = generate_sets(gset="test")
                 
             print "predicting....."    
-            dataset = np.genfromtxt(open('train.csv','r'), delimiter='\t')
+            dataset = np.genfromtxt(open('data/train.csv','r'), delimiter='\t')
             target = [x[11] for x in dataset]
             train = [x[1:11] for x in dataset]
             rf = RandomForestClassifier(n_estimators=100)
             rf.fit(train, target)
             
             
-            dataset2 = np.genfromtxt(open('test.csv','r'), delimiter='\t')
+            dataset2 = np.genfromtxt(open('data/test.csv','r'), delimiter='\t')
             test = [x[1:11] for x in dataset2]
             target2 = [x[11] for x in dataset2]
 
             model1=rf.predict(test)
         
-            eventfilename =  "events_machine.csv"
+            eventfilename =  "data/events_machine.csv"
             outfile2 = open(eventfilename, "wb")
             eventfile = csv.writer(outfile2, delimiter=',')
         
-            orderfile = "orders_from_event_profiler_machine.csv"
+            orderfile = "data/orders_from_event_profiler_machine.csv"
             outfile = open(orderfile, "wb")
             fileWriter = csv.writer(outfile, delimiter=',')
                            

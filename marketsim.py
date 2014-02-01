@@ -8,8 +8,8 @@ from util import *
 
 def marketsim():
     V0=10000
-    orderfile = "orders_from_event_profiler_bollinger.csv"
-    valuesfile = "values_event_profiler_bollinger.csv"
+    orderfile = "data/orders_from_event_profiler_bollinger.csv"
+    valuesfile = "data/values_event_profiler_bollinger.csv"
     
     orders = np.loadtxt(orderfile, dtype=[('year',int),('month',int), ('day',int),
     ('symbols',str, 25),('trans',str, 25), ('nstocks',int)], delimiter=',')

@@ -24,12 +24,12 @@ def bollinger(data, period=21):
 
 def find_events_bollinger(symbols, data, period=21):
     
-    data_dir = "/Users/jguedes/Dropbox/Apps/iproject/"
-    orderfile = data_dir + "orders_from_event_profiler_bollinger.csv"
+
+    orderfile =  "data/orders_from_event_profiler_bollinger.csv"
     outfile = open(orderfile, "wb")
     fileWriter = csv.writer(outfile, delimiter=',')
     
-    eventfilename = data_dir + "events.csv"
+    eventfilename = "data/events.csv"
     outfile2 = open(eventfilename, "wb")
     eventfile = csv.writer(outfile2, delimiter=',')
     
@@ -229,9 +229,9 @@ def plot_events(sym, startdate=dt.date(2008,01,01), enddate=dt.datetime.now(), p
     plt.ylabel('Normalized Price')
 
     if plot_events:
-        image = '/Users/jguedes/Dropbox/Apps/iproject/static/img/bollinger/bollinger_'+sym+'.png'
+        image = 'static/img/bollinger/bollinger_'+sym+'.png'
     else:
-        image = '/Users/jguedes/Dropbox/Apps/iproject/static/img/bollinger/bollinger_'+sym+'_ne.png'
+        image = 'static/img/bollinger/bollinger_'+sym+'_ne.png'
     plt.savefig(image, format="png", dpi=300 )
     
     return
