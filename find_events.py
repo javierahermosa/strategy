@@ -10,7 +10,7 @@ import csv
 import copy
 import numpy as np
 import operator
-from machine import *
+#from machine import *
 from util import *
 import smtplib
 
