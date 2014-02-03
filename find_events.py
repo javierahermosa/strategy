@@ -13,6 +13,7 @@ import operator
 #from machine import *
 from util import *
 import smtplib
+from matplotlib.ticker import MaxNLocator
 
 def bollinger(data, period=21):
     means = pandas.rolling_mean(data, period, min_periods=period-1)
@@ -63,6 +64,18 @@ def find_events_bollinger(symbols, data, period=21):
             elif bollinger_val[sym].values[i] >= 1.0  and bollinger_val[sym].values[i-1] <=1.0:
                 eventfile.writerow([timestamps[i], sym, "Sell"])
                 events[timestamps[i]] = ("Sell", sym)
+                
+                fileWriter.writerow([int('{:%Y}'.format(timestamps[i])), 
+                                     int('{:%m}'.format(timestamps[i])), 
+                                     int('{:%d}'.format(timestamps[i])) , sym,"Sell",100])
+                if (i+5 < len(timestamps)):
+                    fileWriter.writerow([int('{:%Y}'.format(timestamps[i+5])), 
+                                         int('{:%m}'.format(timestamps[i+5])), 
+                                         int('{:%d}'.format(timestamps[i+5])), sym,"Buy",100])
+                else:
+                    fileWriter.writerow([int('{:%Y}'.format(timestamps[-1])), 
+                                         int('{:%m}'.format(timestamps[-1])), 
+                                         int('{:%d}'.format(timestamps[-1])), sym,"Buy",100])
                                 
     outfile.close()
     return events    
@@ -173,9 +186,11 @@ def notify(rec):
               
             username = 'javiguedes'
             password = 'anacoreta1234'
-            server = smtplib.SMTP('smtp.gmail.com')
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+            
             server.ehlo()
             server.starttls()
+            server.ehlo()
             server.login(username,password)
             
             try:
@@ -207,7 +222,11 @@ def plot_events(sym, startdate=dt.date(2008,01,01), enddate=dt.datetime.now(), p
     ax.set_xlim(xmin=data.index[0], xmax=data.index[-1])
     ax.yaxis.set_major_locator(MaxNLocator(prune='both'))
     ax.legend(['Events'], loc=2, fancybox=True)
-    
+    ax.fill_between([dt.date(2008,01,01), dt.date(2009,05,01)], \
+                    [data[sym].values.min(), data[sym].values.min()],\
+                    [data[sym].values.max(), data[sym].values.max()], \
+                    facecolor="Red", edgecolor="Red", interpolate=True,alpha=0.3)
+       
     plt.ylabel('Adjusted Close')
     ax1 = fig.add_subplot(212)
     ax1.set_ylim(-4,4)
@@ -224,7 +243,7 @@ def plot_events(sym, startdate=dt.date(2008,01,01), enddate=dt.datetime.now(), p
     bv_sym = bollinger_val[sym].values
     test_nan = bv_sym[np.logical_not(np.isnan(bv_sym))]
     p_sym, = ax1.plot(data.index,bollinger_val[sym].values, color="Gray", lw=1.5)
-    ax.legend([sym,'Moving Average'], loc=2, fancybox=True)
+    ax.legend([sym], loc=4, fancybox=True)
     plt.xlabel('Date')
     plt.ylabel('Normalized Price')
 
@@ -242,15 +261,15 @@ if __name__ == "__main__":
     startdate = dt.date(2008,01,01)   
     # enddate = dt.date(2009,04,01)
     events, rec_ev, rec_trans, rec_trans_p, prof_trans = fetch_events(startdate=startdate, enddate= dt.datetime.now())
-    #if notify(rec_trans): print "NOTIFIED!"
-    
-    data = get_data(startdate=startdate, enddate= dt.datetime.now())
-    symbols = data.columns.tolist()
-    for sym in symbols:
-        print sym
-        if sym != "BRK.B":
-            plot_events(sym, startdate=startdate, enddate=dt.datetime.now(), period=21, plot_events=True)
-            plot_events(sym, startdate=startdate, enddate=dt.datetime.now(), period=21, plot_events=False)
+    if notify(rec_trans): print "NOTIFIED!"
+    # 
+    # data = get_data(startdate=startdate, enddate= dt.datetime.now())
+    # symbols = data.columns.tolist()
+    # for sym in symbols:
+    #     print sym
+    #     if sym != "BRK.B":
+    #         plot_events(sym, startdate=startdate, enddate=dt.datetime.now(), period=21, plot_events=True)
+    #         plot_events(sym, startdate=startdate, enddate=dt.datetime.now(), period=21, plot_events=False)
     
     
 

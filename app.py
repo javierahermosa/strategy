@@ -31,13 +31,18 @@ def page_not_found(e):
 def index():
     #b20 = get_highest_returns()
     #b20ticks = b20.index
-    last_update_query = cur.execute("""SELECT MAX(date_added) FROM best_stocks;""")
+    last_update_query = cur.execute("""SELECT last_update FROM daily_price ORDER BY date desc LIMIT 1;""")
     last_update = (cur.fetchall())[0][0]
     
-    best_query = cur.execute("""SELECT ticker, ret FROM best_stocks \
-                    WHERE date_added='%s' ORDER BY ret desc;""" % last_update)
-    best_sql = cur.fetchall()
-    best = [d for d in best_sql]
+    # best_query = cur.execute("""SELECT ticker, ret FROM best_stocks \
+    #                 WHERE date_added='%s' ORDER BY ret desc;""" % last_update)
+    # best_sql = cur.fetchall()
+    # best = [d for d in best_sql]
+    
+    best_crisis_query = cur.execute("""SELECT ticker, ret, ret_spy FROM best_crisis \
+                    ORDER BY date_added desc, ret desc LIMIT 4;""" ) 
+    best_crisis_sql = cur.fetchall()
+    best_crisis = [b for b in best_crisis_sql]
     
     rec_query =  cur.execute("""SELECT ticker, date_recommended, type FROM recommended_trades \
                     ORDER BY date_recommended desc LIMIT 1;""")
@@ -96,7 +101,7 @@ def index():
              last_trans=last_trans, dat=dat, buy=buy, sell=sell, return_holding = return_holding, \
              startdate=startdate, enddate=enddate)
              
-    return render_template('index.html', form=form, best=best, recommend=recommend, notifications=notifications)
+    return render_template('index.html', form=form,recommend=recommend, notifications=notifications, best_crisis = best_crisis)
     
 def parseDFdata(priceDF, tick):
     priceDict = []
@@ -119,8 +124,10 @@ def parseEvents(events, priceDF, tick):
         if events.values()[i][0] == "Sell":
             sell.append(price)
     return buy, sell
-    
-        
+
+@app.route("/about")
+def about():
+    return render_template('about.html') 
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT",5000))

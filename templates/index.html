@@ -16,7 +16,7 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 	
-<h3>Get a notification when a good buy or sell opportunity comes up:</h3>
+<h2 style="font-size: 20px; color:black; ">Check how well $trategy works for your favorite stock during the crisis, and get a notification when a good buy or sell opportunity comes up:</h2>
 <form  class="form-inline" role="search" action="." method="post">
  {{ form.csrf_token }}
  
@@ -46,6 +46,7 @@
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
+
 {%  if recommend | length %}
 <h2 class="text-success"> Today, $trategy recommends:</h2>
 <div class="row">
@@ -57,7 +58,11 @@
             <div class="text">
                 <var>{{recommend[0][2]}}</var>
                 <h1  class="text-muted" style="font-size: 32px;">{{recommend[0][0]}}</h1>
+				{% if recommend[0][2]== "Buy" %}
 				<p class="text-muted"> Sell in 5 days </p>
+				{% elif recommend[0][2]== "Sell" %}
+				<p class="text-muted"> Buy in 5 days </p>
+				{% endif %}
             </div>
      
         </div>
@@ -84,7 +89,7 @@
 {% endif %}	
 
 
-<h2> $trategy did better than the SPY during the 2008 crisis on:</h2>
+<h2> $trategy did better than the SPY ({{'%0.2f' % best_crisis[0][2]}}%) recently on:</h2>
 	<div class="row">
 		<div class="col-sm-3">
     	    <div class="hero-widget well well-sm">
@@ -92,11 +97,11 @@
                      <i class="glyphicon glyphicon-thumbs-up"></i>
                 </div>
                 <div class="text">
-                    <var>224%</var>
-                    <h1  class="text-muted" style="font-size: 32px;">GOOG</h1>
+                    <var>{{'%0.2f' % best_crisis[0][1]}}%</var>
+                    <h1  class="text-muted" style="font-size: 32px;">{{best_crisis[0][0]}}</h1>
                 </div>
                 <div class="options">
-                     <a href="javascript:;" class="btn btn-disabled btn-lg">Return during 2008-2010</a>
+                     <a href="javascript:;" class="btn btn-disabled btn-lg">Since Nov 2013</a>
                 </div>
             </div>
 		</div>
@@ -106,11 +111,11 @@
                      <i class="glyphicon glyphicon-thumbs-up"></i>
                 </div>
                 <div class="text">
-                    <var>83%</var>
-                    <h1  class="text-muted" style="font-size: 32px;">PCLN</h1>
+                    <var>{{'%0.2f' % best_crisis[1][1]}}%</var>
+                    <h1  class="text-muted" style="font-size: 32px;">{{best_crisis[1][0]}}</h1>
                 </div>
                 <div class="options">
-                    <a href="javascript:;" class="btn btn-disabled btn-lg">Return during 2008-2010</a>
+                    <a href="javascript:;" class="btn btn-disabled btn-lg">Since Nov 2013</a>
                 </div>
             </div>
 		</div>
@@ -121,11 +126,11 @@
                      <i class="glyphicon glyphicon-thumbs-up"></i>
                 </div>
                 <div class="text">
-                    <var>60% </var>
-                    <h1  class="text-muted" style="font-size: 32px;">AMZN</h1>
+                    <var>{{'%0.2f' % best_crisis[2][1]}}% </var>
+                    <h1  class="text-muted" style="font-size: 32px;">{{best_crisis[1][0]}}</h1>
                 </div>
                 <div class="options">
-                    <a href="javascript:;" class="btn btn-disabled btn-lg">Return during 2008-2010</a>
+                    <a href="javascript:;" class="btn btn-disabled btn-lg">Since Nov 2013</a>
                 </div>
             </div>
     	</div>
@@ -136,11 +141,11 @@
                      <i class="glyphicon glyphicon-thumbs-up"></i>
                 </div>
                 <div class="text">
-                    <var>52%</var>
-                    <h1  class="text-muted" style="font-size: 32px;">AAPL</h1>
+                    <var>{{'%0.2f' % best_crisis[3][1]}}%</var>
+                    <h1  class="text-muted" style="font-size: 32px;">{{best_crisis[3][0]}}</h1>
                 </div>
                 <div class="options">
-                    <a href="javascript:;" class="btn btn-disabled btn-lg"> Return during 2008-2010</a>
+                    <a href="javascript:;" class="btn btn-disabled btn-lg"> Since Nov 2013</a>
                 </div>
             </div>
 		</div>
@@ -150,82 +155,12 @@
 	</div>
 
 
-
-<!-- <h2> Best Recent $trategy Recommendations:</h2>
-	<div class="row">
-        <div class="col-sm-3">
-            <div class="hero-widget well well-sm">
-                <div class="icon">
-                     <i class="glyphicon glyphicon-thumbs-up"></i>
-                </div>
-                <div class="text">
-                    <var>{{ '%0.1f' % best[0][1]}}% </var>
-                    <h1  class="text-muted" style="font-size: 32px;">{{best[0][0]}}</h1>
-                </div>
-                <div class="options">
-                    <a href="javascript:;" class="btn btn-disabled btn-lg">Dec 2, 2013</a>
-                </div>
-            </div>
-    	</div>
-		
-        <div class="col-sm-3">
-            <div class="hero-widget well well-sm">
-                <div class="icon">
-                     <i class="glyphicon glyphicon-thumbs-up"></i>
-                </div>
-                <div class="text">
-                    <var>{{ '%0.1f' % best[1][1]}}%</var>
-                    <h1  class="text-muted" style="font-size: 32px;">{{best[1][0]}}</h1>
-                </div>
-                <div class="options">
-                    <a href="javascript:;" class="btn btn-disabled btn-lg"> Dec 22 2013</a>
-                </div>
-            </div>
-		</div>
-  
-        <div class="col-sm-3">
-            <div class="hero-widget well well-sm">
-                <div class="icon">
-                     <i class="glyphicon glyphicon-thumbs-up"></i>
-                </div>
-                <div class="text">
-                    <var>{{  '%0.1f' % best[2][1]}}%</var>
-                    <h1  class="text-muted" style="font-size: 32px;">{{best[2][0]}}</h1>
-                </div>
-                <div class="options">
-                    <a href="javascript:;" class="btn btn-disabled btn-lg">Nov 30 2013</a>
-                </div>
-            </div>
-		</div>
-		<div class="col-sm-3">
-    	    <div class="hero-widget well well-sm">
-                <div class="icon">
-                     <i class="glyphicon glyphicon-thumbs-up"></i>
-                </div>
-                <div class="text">
-                    <var>{{  '%0.1f' % best[3][1] }}%</var>
-                    <h1  class="text-muted" style="font-size: 32px;">{{best[3][0]}}</h1>
-                </div>
-                <div class="options">
-                     <a href="javascript:;" class="btn btn-disabled btn-lg">Jan 1 2014</a>
-                </div>
-            </div>
-		</div>
-	</div> -->
-
 	<p>&nbsp;</p>
 	<p>&nbsp;</p>
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
 
 
 
