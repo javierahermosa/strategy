@@ -129,6 +129,10 @@ def parseEvents(events, priceDF, tick):
 def about():
     return render_template('about.html') 
 
+@app.route("/slides")
+def slides():
+    return render_template('slides.html') 
+    
 if __name__ == "__main__":
     port = int(os.environ.get("PORT",5000))
     app.run(host='0.0.0.0', port=port)
