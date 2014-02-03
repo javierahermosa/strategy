@@ -23,7 +23,7 @@ def get_from_wiki():
   return symbols
 
 def insert(symbols):
-  con = mdb.connect(host='localhost', user='root', db='stocks')
+  con = mdb.connect(host='localhost', user='root', db='stocks2')
 
   # Create the insert strings
   column_str = "ticker, name, sector, subsector,  headquarters, last_updated"
