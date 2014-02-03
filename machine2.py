@@ -16,7 +16,7 @@ from util import *
 from find_events import *
 
 
-con = mdb.connect(host='localhost', user='root', db='stocks')
+con = mdb.connect(host='localhost', user='root', db='stocks2')
 
 def get_ticker_data(tick, startdate = dt.date(2008,01,01)):
     sql = """ SELECT dp.date, dp.adj_close, dp.high, dp.low, dp.volume
@@ -71,7 +71,7 @@ def generate_sets(gset="train"):
     enddate = dt.datetime.now()
      
     print "getting data...."
-    con = mdb.connect(host='localhost', user='root', db='stocks')
+    con = mdb.connect(host='localhost', user='root', db='stocks2')
     cur = con.cursor()
     cur.execute("SELECT ticker FROM symbols")
     data = cur.fetchall()
