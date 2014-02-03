@@ -15,7 +15,7 @@ def get_data(startdate=dt.date(2008,01,01), enddate=dt.datetime.now(), symbols="
           startdate=dt.date(2013,01,01)
           
     print "getting data...."
-    con = mdb.connect(host='localhost', user='root', db='stocks')
+    con = mdb.connect(host='localhost', user='root', db='stocks2')
     
     if symbols=="all":
         cur = con.cursor()
@@ -74,7 +74,7 @@ def create_stocks_json():
       json.dump(tickers, outfile)
     
 def get_symbols():
-    con = mdb.connect(host='localhost', user='root', db='stocks')
+    con = mdb.connect(host='localhost', user='root', db='stocks2')
     with con: 
       cur = con.cursor()
       cur.execute("SELECT ticker FROM symbols")
