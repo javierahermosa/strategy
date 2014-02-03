@@ -155,7 +155,7 @@ def fetch_events(symbols='all',startdate=dt.date(2008,01,01), enddate= dt.dateti
 def notify(rec):
     print "notifying..."
     if rec:
-        con = mdb.connect(host='localhost', user='root', db='stocks')
+        con = mdb.connect(host='localhost', user='root', db='stocks2')
         cur = con.cursor()
         
         # add to DB 
