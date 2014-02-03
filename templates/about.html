@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block headtitle %} - About{% endblock %}
+{% block title %} Strategy{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<img src="{{ url_for('static', filename='img/sg1.jpg') }}" 
+		     width=40% height=40% class="img-circle img-responsive col-centered" >
+
+		<h3> Strategy is an application that notifies you when you should buy or 
+			 a stock.  
+		</h3>
+		<h3> During good times, maybe you will choose to hold a stock or a set of 
+			the. During crises however, you will need a strategy.
+		</h3>
+		<h3> When bad times come around Strategy is there to help you profit. 
+		</h3>
+		<h3> Stratgey was developed by Javiera Guedes, feel free to send her your 
+			comments or questions to 
+			<a href="mailto:javierahermosa@yahoo.com">this email</a> address. 
+		</h3>
+	</div> <!-- column -->
+</div> <!--row-->
+
+
+{% endblock %}
