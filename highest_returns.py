@@ -17,7 +17,7 @@ def store_highest_returns(startdate=dt.date(2014,01,01), nmax = 30):
     best = returns[-nmax:]
 
     # store highest returns in DB
-    con = mdb.connect(host='localhost', user='root', db='stocks')
+    con = mdb.connect(host='localhost', user='root', db='stocks2')
     cur = con.cursor()
           
     now = dt.datetime.now()
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         
     best_four = best_sorted_crisis[-4:]         
     #store highest returns in DB
-    con = mdb.connect(host='localhost', user='root', db='stocks')
+    con = mdb.connect(host='localhost', user='root', db='stocks2')
     cur = con.cursor()
           
     now = dt.datetime.now()
