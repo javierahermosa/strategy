@@ -4,7 +4,7 @@ import MySQLdb as mdb
 import urllib2
 import urllib
 
-con = mdb.connect(host='localhost', user='root', db='stocks')
+con = mdb.connect(host='localhost', user='root', db='stocks2')
 
 # Get ticker list from database
 def obtain_list_of_db_tickers():
@@ -81,7 +81,7 @@ def insert_to_db_scratch():
     print "Done."
     
 def update_db():
-    con = mdb.connect(host='localhost', user='root', db='stocks')
+    con = mdb.connect(host='localhost', user='root', db='stocks2')
     sql = """SELECT last_update FROM daily_price AS dp ORDER BY dp.last_update DESC LIMIT 1;"""
     cur = con.cursor()
   

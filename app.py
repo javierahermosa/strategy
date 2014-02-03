@@ -19,7 +19,7 @@ app.config.update(
     DEBUG=True
 )
 
-con = mdb.connect(host='localhost', user='root', db='stocks')
+con = mdb.connect(host='localhost', user='root', db='stocks2')
 cur = con.cursor()
 
 @app.errorhandler(404)
