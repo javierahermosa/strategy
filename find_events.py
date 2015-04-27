@@ -185,7 +185,7 @@ def notify(rec):
               ]) % (from_addrs, to_addrs, rec[0], rec[1])
               
             username = 'javiguedes'
-            password = 'anacoreta1234'
+            password = ''
             server = smtplib.SMTP('smtp.gmail.com', 587)
             
             server.ehlo()
